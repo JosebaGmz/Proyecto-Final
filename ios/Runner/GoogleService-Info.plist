@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBrS5IPqPFY1pPF9hCTRppOrR8tJewTfI0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>88569760035</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.joseba.proyectoPspPmdm</string>
+	<key>PROJECT_ID</key>
+	<string>proyecto-final-dam-joseba</string>
+	<key>STORAGE_BUCKET</key>
+	<string>proyecto-final-dam-joseba.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:88569760035:ios:a2778c8ff6df41587de496</string>
+</dict>
+</plist>

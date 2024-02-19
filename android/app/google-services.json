@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "88569760035",
+    "project_id": "proyecto-final-dam-joseba",
+    "storage_bucket": "proyecto-final-dam-joseba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:88569760035:android:b69b33fb144406c17de496",
+        "android_client_info": {
+          "package_name": "com.joseba.proyecto_psp_pmdm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1wryd-BzQ8lYQzpo5gM7WgBOca49rDqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
