@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget{
       '/registerview':(context) => RegisterView(),
     },
       initialRoute: '/loginview',
+      debugShowCheckedModeBanner: false,
     );
     return materialApp;
   }
