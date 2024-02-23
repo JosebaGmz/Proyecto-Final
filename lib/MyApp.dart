@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget{
 
     MaterialApp materialApp;
 
-    materialApp = MaterialApp(title: "Mi Proyecto",
+    materialApp = MaterialApp(title: "SNKRS APP",
     routes: {
       '/loginview':(context) => LoginView(),
       '/registerview':(context) => RegisterView(),
