@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_psp_pmdm/Custom/CButton.dart';
 import 'package:proyecto_psp_pmdm/Custom/CTextF.dart';
+import 'package:proyecto_psp_pmdm/Singletone/FirebaseAdmin.dart';
 
 import '../FirestoreObjects/FbUsuario.dart';
 
@@ -13,6 +14,7 @@ class PerfilView extends StatelessWidget{
   TextEditingController tecEdad=TextEditingController();
   TextEditingController tecTalla=TextEditingController();
   FirebaseFirestore db = FirebaseFirestore.instance;
+  FirebaseAdmin fbAdmin = FirebaseAdmin();
   late BuildContext _context;
 
   void onClickAceptar() async{
@@ -20,10 +22,8 @@ class PerfilView extends StatelessWidget{
     FbUsuario usuario = new FbUsuario(nombre: tecNombre.text,
         edad: int.parse(tecEdad.text), talla: double.parse(tecTalla.text));
 
-
-    //Crear documento con ID NUESTRO (o proporsionado por nosotros)
-    String uidUsuario= FirebaseAuth.instance.currentUser!.uid;
-    await db.collection("Usuarios").doc(uidUsuario).set(usuario.toFirestore());
+    fbAdmin.agregarPerfilUsuario(usuario);
+    print("Esto ha Funcionado");
 
     Navigator.of(_context).popAndPushNamed("/homeview");
   }
