@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:proyecto_psp_pmdm/Custom/DrawerClass.dart';
 import 'package:proyecto_psp_pmdm/Main/HomeView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/LoginView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/PerfilView.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget{
       '/registerview':(context) => RegisterView(),
       '/perfilview':(context) => PerfilView(),
       '/homeview':(context) => HomeView(),
+      '/drawerclass':(context) => DrawerClass(),
     },
       initialRoute: '/loginview',
       debugShowCheckedModeBanner: false,
