@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:proyecto_psp_pmdm/Custom/CButton.dart';
 import 'package:proyecto_psp_pmdm/Custom/CTextF.dart';
 import 'package:proyecto_psp_pmdm/Singletone/FirebaseAdmin.dart';
 
 import '../FirestoreObjects/FbUsuario.dart';
+import '../Singletone/DataHolder.dart';
 
 class PerfilView extends StatelessWidget{
 
@@ -19,13 +21,16 @@ class PerfilView extends StatelessWidget{
 
   void onClickAceptar() async{
 
+    Position currentPosition = await DataHolder().geolocAdmin.determinePosition();
+    GeoPoint currentGeoPoint = GeoPoint(currentPosition.latitude, currentPosition.longitude);
+
     FbUsuario usuario = new FbUsuario(nombre: tecNombre.text,
-        edad: int.parse(tecEdad.text), talla: double.parse(tecTalla.text));
+        edad: int.parse(tecEdad.text), talla: double.parse(tecTalla.text),geoloc:currentGeoPoint);
 
     fbAdmin.agregarPerfilUsuario(usuario);
     print("Esto ha Funcionado");
 
-    Navigator.of(_context).popAndPushNamed("/homeview");
+    Navigator.of(_context).popAndPushNamed("/drawerclass");
   }
 
   void onClickCancelar(){

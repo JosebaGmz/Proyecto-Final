@@ -21,4 +21,10 @@ class FirebaseAdmin{
     await docUsuario.collection('ZapatillasStock').doc().set({});
     //CollectionReference subColeccionZapasStock = docUsuario.collection('ZapatillasStock');
   }
+
+  void actualizarPerfilUsuario(FbUsuario usuario) async{
+    //Crear documento con ID NUESTRO (o proporsionado por nosotros)
+    String uidUsuario= FirebaseAuth.instance.currentUser!.uid;
+    await db.collection("Usuarios").doc(uidUsuario).set(usuario.toFirestore());
+  }
 }

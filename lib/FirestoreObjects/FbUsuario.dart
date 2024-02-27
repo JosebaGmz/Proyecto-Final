@@ -5,11 +5,13 @@ class FbUsuario{
   final String nombre;
   final int edad;
   final double talla;
+  GeoPoint geoloc;
 
   FbUsuario ({
     required this.nombre,
     required this.edad,
-    required this.talla
+    required this.talla,
+    required this.geoloc
   });
 
   factory FbUsuario.fromFirestore(
@@ -21,6 +23,7 @@ class FbUsuario{
         nombre: data?['nombre'] != null ? data!['nombre'] : "",
         edad: data?['edad'] != null ? data!['edad'] : 0,
         talla: data?['talla'] != null ? data!['talla'] : 0,
+        geoloc:data?['geoloc'] != null ? data!['geoloc'] : GeoPoint(0, 0)
 
     );
   }
@@ -30,6 +33,7 @@ class FbUsuario{
       if (nombre != null) "nombre": nombre,
       if (edad != null) "edad": edad,
       if (talla != null) "talla": talla,
+      if (geoloc != null) "geoloc": geoloc,
     };
   }
 
