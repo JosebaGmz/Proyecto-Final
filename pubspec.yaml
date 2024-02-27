@@ -39,6 +39,8 @@ dependencies:
   firebase_auth: ^4.17.4
   cloud_firestore: ^4.15.5
   flutter_zoom_drawer: ^2.1.1
+  shared_preferences: ^2.2.2
+  geolocator: ^10.1.0
 
 dev_dependencies:
   flutter_test:
