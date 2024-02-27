@@ -27,4 +27,25 @@ class FirebaseAdmin{
     String uidUsuario= FirebaseAuth.instance.currentUser!.uid;
     await db.collection("Usuarios").doc(uidUsuario).set(usuario.toFirestore());
   }
+
+  Future<List<FbPost>> descargarPosts() async {
+    List<FbPost> zapatillas = [];
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String userId = uid;
+
+    QuerySnapshot<Map<String, dynamic>> zapasSnapshot = await db
+        .collection("ColeccionZapatillas")
+        .doc(userId)
+        .collection("ZapatillasStock")
+        .get();
+
+    zapasSnapshot.docs.forEach((zapaDoc) {
+      FbPost anuncio = FbPost.fromFirestore(zapaDoc, null);
+      zapatillas.add(anuncio);
+    });
+    print(zapatillas.length);
+    return zapatillas;
+  }
 }

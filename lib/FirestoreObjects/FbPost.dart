@@ -9,6 +9,7 @@ class FbPost{
   final String marca;
   final String color;
   final int talla;
+  final int precio;
 
   FbPost ({
     required this.titulo,
@@ -16,7 +17,8 @@ class FbPost{
     required this.sUrlImg,
     required this.talla,
     required this.marca,
-    required this.color
+    required this.color,
+    required this.precio
   });
 
   factory FbPost.fromFirestore(
@@ -30,7 +32,8 @@ class FbPost{
         sUrlImg: data?['sUrlImg'] != null ? data!['sUrlImg'] : "",
         talla: data?['talla'] ?? 0,
         marca: data? ['marca'],
-        color: data? ['color']
+        color: data? ['color'],
+        precio: data? ['precio'] ?? 1
     );
   }
 
@@ -42,6 +45,7 @@ class FbPost{
       if (talla != null) "talla": talla,
       if(marca != null) "marca": marca,
       if(color != null) "color": color,
+      if(precio != null) "precio": precio,
     };
   }
 }

@@ -61,6 +61,7 @@ class DataHolder {
       prefs.setInt('fbpost_talla', selectedPost!.talla);
       prefs.setString('fbpost_marca', selectedPost!.marca);
       prefs.setString('fbpost_color', selectedPost!.color);
+      prefs.setInt('fbpost_precio', selectedPost!.precio);
     }
 
   }
@@ -110,8 +111,12 @@ class DataHolder {
       fbpost_color="";
     }
 
+    int? fbpost_precio = prefs.getInt('fbpost_precio');
+    if(fbpost_precio == null){
+      fbpost_precio = 1;
+    }
 
-    selectedPost=FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo, sUrlImg: fbpost_surlimg, talla: fbpost_talla, marca: fbpost_marca, color: fbpost_color);
+    selectedPost=FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo, sUrlImg: fbpost_surlimg, talla: fbpost_talla, marca: fbpost_marca, color: fbpost_color,precio: fbpost_precio);
     return selectedPost;
   }
 
