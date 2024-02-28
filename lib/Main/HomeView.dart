@@ -52,19 +52,19 @@ class _HomeViewState extends State<HomeView> {
     if(!kIsWeb){
       DataHolder().suscribeACambiosGPSUsuario();
     }
-    setearList();
+      setearList();
   }
 
   Future<void> setearList()async{
     try {
-      List<FbPost> imagenesDescargadas = await DataHolder().fbadmin.descargarPosts();
+      List<FbPost> anunciosDescargadas = await DataHolder().fbadmin.descargarPosts();
       setState(() {
-        posts = imagenesDescargadas;
+        posts = anunciosDescargadas;
       });
 
-      print("Número de imágenes descargadas: ${posts.length}");
+      print("Número de anuncios descargados: ${posts.length}");
     } catch (e) {
-      print("Error al descargar memorias: $e");
+      print("Error al descargar anuncios: $e");
     }
   }
 
@@ -113,6 +113,7 @@ class _HomeViewState extends State<HomeView> {
   Widget? creadorDeItemMatriz(BuildContext context, int index){
     return PostGridCellView(sText: posts[index].titulo,
         precio: posts[index].precio,
+        sUrlImg: posts[index].sUrlImg,
         dFontSize: 28,
         iColorCode: 0,
         dHeight: DataHolder().platformAdmin.getScreenHeight()*0.5,
@@ -141,9 +142,14 @@ class _HomeViewState extends State<HomeView> {
         separatorBuilder: creadorDeSeparadorLista,
       );
     } else {
-      return GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
+      return
+        GridView.builder(
+        padding: const EdgeInsets.all(20),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 1,
+              mainAxisExtent: 400,),
           itemCount: posts.length,
+          scrollDirection: Axis.vertical,
           itemBuilder: creadorDeItemMatriz
       );
     }

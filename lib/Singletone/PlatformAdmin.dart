@@ -6,7 +6,7 @@ class PlatformAdmin{
 
   //PlatformAdmin(required this.contexto);
   PlatformAdmin({required this.context});
-  //LOS MANINES
+
   double getScreenWidth(){
     double width = MediaQuery.of(context).size.width;
     return width;

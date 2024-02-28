@@ -83,7 +83,9 @@ class _PostCreateViewState extends State<PostCreateView> {
         precio:int.parse(tcPrecio.text));
     DataHolder().insertPostEnFB(postNuevo);
 
-    Navigator.of(context).popAndPushNamed("/drawerview");
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.of(context).popAndPushNamed("/drawerview");
+    });
   }
 
   Future<void> _pickImage() async {
