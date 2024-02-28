@@ -30,7 +30,7 @@ class PerfilView extends StatelessWidget{
     fbAdmin.agregarPerfilUsuario(usuario);
     print("Esto ha Funcionado");
 
-    Navigator.of(_context).popAndPushNamed("/drawerclass");
+    Navigator.of(_context).popAndPushNamed("/drawerview");
   }
 
   void onClickCancelar(){

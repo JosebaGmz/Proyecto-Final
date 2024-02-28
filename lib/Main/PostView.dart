@@ -42,7 +42,7 @@ class _PostViewState extends State<PostView> {
             Text(_datosPost.cuerpo),
             Text(_datosPost.talla.toString()),
             Text(_datosPost.marca),
-            Image.network(_datosPost.sUrlImg),
+            Image.network(_datosPost.sUrlImg,width: 200,height: 200,),
             TextButton(onPressed: null, child: Text("Like"))
           ],
         )

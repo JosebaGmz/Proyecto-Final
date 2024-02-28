@@ -42,14 +42,16 @@ class DataHolder {
     return _dataHolder;
   }
 
-  void insertPostEnFB(FbPost postNuevo){
-    CollectionReference<FbPost> postsRef = db.collection("ColeccionZapatillas")
-        .withConverter(
-      fromFirestore: FbPost.fromFirestore,
-      toFirestore: (FbPost post, _) => post.toFirestore(),
-    );
+  void insertPostEnFB(FbPost postNuevo) async{
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    CollectionReference<Map<String, dynamic>> coleccionesRef = db.collection("ColeccionZapatillas");
+    bool usuarioExiste = await coleccionesRef.doc(uid).get().then((doc) =>doc.exists);
 
-    postsRef.add(postNuevo);
+    CollectionReference<Map<String, dynamic>> zapatillasRef = coleccionesRef.doc(uid).collection("ZapatillasStock");
+
+    bool subcoleccionExiste = await zapatillasRef.get().then((querySnapshot) => querySnapshot.docs.isNotEmpty);
+
+    await zapatillasRef.add(postNuevo.toFirestore());
   }
 
   void saveSelectedPostInCache() async{

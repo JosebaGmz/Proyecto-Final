@@ -102,6 +102,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget? creadorDeItemLista(BuildContext context, int index){
     return PostCellView(sText: posts[index].titulo,
+        sUrlImg: posts[index].sUrlImg,
         dFontSize: 30,
         iColorCode: 0,
         iPosicion: index,

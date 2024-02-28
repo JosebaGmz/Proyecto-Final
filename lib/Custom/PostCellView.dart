@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class PostCellView extends StatelessWidget{
 
   final String sText;
+  final String sUrlImg;
   final int iColorCode;
   final double dFontSize;
   final int iPosicion;
@@ -14,6 +15,7 @@ class PostCellView extends StatelessWidget{
     required this.iColorCode,
     required this.dFontSize,
     required this.iPosicion,
+    required this.sUrlImg,
     required this.onItemListClickedFun});
 
 
@@ -25,7 +27,7 @@ class PostCellView extends StatelessWidget{
           color: Colors.amber[iColorCode],
           child: Row(
             children: [
-              Image.asset("resources/logo_kyty2.png",width: 70,
+              Image.network(sUrlImg,width: 70,
                   height: 70),
               Text(sText,style: TextStyle(fontSize: dFontSize)),
               TextButton(onPressed: null, child: Text("+",style: TextStyle(fontSize: dFontSize)))

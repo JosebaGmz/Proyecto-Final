@@ -31,7 +31,7 @@ class LoginView extends StatelessWidget{
       String uid=FirebaseAuth.instance.currentUser!.uid;
       DocumentSnapshot<Map<String, dynamic>> datos=await db.collection("Usuarios").doc(uid).get();
       if(datos.exists){
-        Navigator.of(_context).popAndPushNamed("/drawerclass");
+        Navigator.of(_context).popAndPushNamed("/drawerview");
       }
       else{
         Navigator.of(_context).popAndPushNamed("/perfilview");

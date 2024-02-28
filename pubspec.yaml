@@ -41,6 +41,9 @@ dependencies:
   flutter_zoom_drawer: ^2.1.1
   shared_preferences: ^2.2.2
   geolocator: ^10.1.0
+  image_picker: ^1.0.4
+  firebase_storage: ^11.4.1
+  universal_html: ^2.0.8
 
 dev_dependencies:
   flutter_test:
