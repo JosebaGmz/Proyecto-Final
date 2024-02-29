@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CButton extends StatelessWidget{
@@ -24,8 +23,7 @@ class CButton extends StatelessWidget{
        onPressed: onPressed,
        style: ElevatedButton.styleFrom(
          padding: EdgeInsets.all(16.0),
-         primary: Colors.blueGrey,
-       ),
+         backgroundColor: Colors.blueGrey,),
        child: Text(
          text,
          style: TextStyle(fontSize: 16,color: Colors.white),

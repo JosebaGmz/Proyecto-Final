@@ -65,7 +65,11 @@ class LoginView extends StatelessWidget{
     ],);
 
     AppBar appBar = AppBar(
-      title: const Text("Iniciar Sesion"),
+      title: const Text("Iniciar Sesion",
+        style: TextStyle(
+        color: Colors.white
+      ),
+      ),
       centerTitle: true,
       shadowColor: Colors.white,
       backgroundColor: Colors.black,

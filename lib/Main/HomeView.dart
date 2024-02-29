@@ -77,6 +77,8 @@ class _HomeViewState extends State<HomeView> {
             icon: const Icon(Icons.menu)
         ),
         title: Text('Mi Aplicación'), // Título del AppBar
+        automaticallyImplyLeading: false,
+        centerTitle: true,
       ),
       body: Center(
         child: celdasOLista(bIsList), // Contenido de la pantalla principal
