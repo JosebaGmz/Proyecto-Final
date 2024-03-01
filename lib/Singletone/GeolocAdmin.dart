@@ -57,8 +57,10 @@ class GeolocAdmin{
       accuracy: LocationAccuracy.high,
       distanceFilter: 0,
     );
+    print("estoy dentro");
 
     positionStream =
         Geolocator.getPositionStream(locationSettings: locationSettings).listen(funCambioPos);
+
   }
 }

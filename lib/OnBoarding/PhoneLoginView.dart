@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:proyecto_psp_pmdm/Custom/CButton.dart';
 import 'package:proyecto_psp_pmdm/Custom/CTextF.dart';
 
@@ -40,13 +41,14 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
     await FirebaseAuth.instance.signInWithCredential(credential);
 
     FbUsuario? usuario= await DataHolder().loadFbUsuario();
-    await DataHolder().geolocAdmin.determinePosition();
+    Position pos=await DataHolder().geolocAdmin.determinePosition();
+    //print("----------->>>>>>>>>>>>>>>>>>> "+pos.toString());
     DataHolder().suscribeACambiosGPSUsuario();
 
     if(usuario!=null){
       print("EL NOMBRE DEL USUARIO LOGEADO ES: "+usuario.nombre);
       print("LA EDAD DEL USUARIO LOGEADO ES: "+usuario.edad.toString());
-      Navigator.of(context).popAndPushNamed("/homeview");
+      Navigator.of(context).popAndPushNamed("/drawerview");
     }
     else{
       Navigator.of(context).popAndPushNamed("/perfilview");
@@ -57,13 +59,14 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
     await FirebaseAuth.instance.signInWithCredential(credencial);
 
     FbUsuario? usuario= await DataHolder().loadFbUsuario();
-    await DataHolder().geolocAdmin.determinePosition();
+    Position pos=await DataHolder().geolocAdmin.determinePosition();
+    //print("----------->>>>>>>>>>>>>>>>>>> "+pos.toString());
     DataHolder().suscribeACambiosGPSUsuario();
 
     if(usuario!=null){
       print("EL NOMBRE DEL USUARIO LOGEADO ES: "+usuario.nombre);
       print("LA EDAD DEL USUARIO LOGEADO ES: "+usuario.edad.toString());
-      Navigator.of(context).popAndPushNamed("/homeview");
+      Navigator.of(context).popAndPushNamed("/drawerview");
     }
     else{
       Navigator.of(context).popAndPushNamed("/perfilview");

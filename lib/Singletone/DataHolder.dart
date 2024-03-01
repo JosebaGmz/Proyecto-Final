@@ -128,6 +128,7 @@ class DataHolder {
   }
 
   void posicionDelMovilCambio(Position? position){
+    print("HE CAMBIADO DE POS:------>>>>"+position.toString());
     usuario!.geoloc=GeoPoint(position!.latitude, position.longitude);
     fbadmin.actualizarPerfilUsuario(usuario!);
   }

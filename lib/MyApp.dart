@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_psp_pmdm/Custom/DrawerClass.dart';
 import 'package:proyecto_psp_pmdm/Main/HomeView.dart';
+import 'package:proyecto_psp_pmdm/Main/MapaView.dart';
 import 'package:proyecto_psp_pmdm/Main/PostCreateView.dart';
 import 'package:proyecto_psp_pmdm/Main/PostView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/LoginView.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget{
           '/drawerview':(context) => DrawerClass(),
           '/postview':(context) => PostView(),
           '/postcreateview':(context) => PostCreateView(),
+          '/mapaview':(context) => MapaView(),
         },
         initialRoute: '/loginview',
         debugShowCheckedModeBanner: false,
@@ -41,6 +43,7 @@ class MyApp extends StatelessWidget{
           '/drawerview':(context) => DrawerClass(),
           '/postview':(context) => PostView(),
           '/postcreateview':(context) => PostCreateView(),
+          '/mapaview':(context) => MapaView(),
         },
         initialRoute: '/loginview',
         debugShowCheckedModeBanner: false,

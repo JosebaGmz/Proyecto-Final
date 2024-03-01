@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -8,14 +10,29 @@ class DrawerClass extends StatefulWidget {
 
   @override
   _DrawerClassState createState() => _DrawerClassState();
+
 }
 
 class _DrawerClassState extends State<DrawerClass> {
+
+  void fHomeViewDrawerOnTap(int indice){
+    print("---->>>> "+indice.toString());
+    if(indice==0){
+
+      Navigator.of(context).pushNamed('/mapaview');
+    }
+    else if(indice==1){
+      exit(0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ZoomDrawer(
       style: DrawerStyle.Style1,
-      menuScreen: const MENU_SCREEN(),
+      menuScreen: MENU_SCREEN(onItemTap: (int index) {
+        fHomeViewDrawerOnTap(index);
+      },),
       mainScreen: HomeView(),
       borderRadius: 40.0,
       showShadow: true,
@@ -29,13 +46,19 @@ class _DrawerClassState extends State<DrawerClass> {
 }
 
 class MENU_SCREEN extends StatefulWidget {
-  const MENU_SCREEN({Key? key}) : super(key: key);
+  final Function(int indice)? onItemTap;
+
+   const MENU_SCREEN({Key? key, this.onItemTap}) : super(key: key);
 
   @override
   _MENU_SCREENState createState() => _MENU_SCREENState();
+
 }
 
 class _MENU_SCREENState extends State<MENU_SCREEN> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -58,7 +81,11 @@ class _MENU_SCREENState extends State<MENU_SCREEN> {
             leading: Icon(Icons.settings,color: Colors.black,),
             selectedColor: Colors.blue,
             selected: true,
-            title: const Text('Apartado 1'),
+            title: const Text('MAPA'),
+            onTap: () {
+              widget.onItemTap!(0);
+
+            },
 
           ),
           ListTile(

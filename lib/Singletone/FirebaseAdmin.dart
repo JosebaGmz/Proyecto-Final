@@ -36,9 +36,7 @@ class FirebaseAdmin{
     String userId = uid;
 
     QuerySnapshot<Map<String, dynamic>> zapasSnapshot = await db
-        .collection("ColeccionZapatillas")
-        .doc(userId)
-        .collection("ZapatillasStock")
+        .collectionGroup("ZapatillasStock")
         .get();
 
     zapasSnapshot.docs.forEach((zapaDoc) {
