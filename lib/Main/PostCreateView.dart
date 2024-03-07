@@ -144,10 +144,17 @@ class _PostCreateViewState extends State<PostCreateView> {
             child: CTextF(hint: "Precio",tController: tcPrecio,password: false),
           ),
           //Image.file(_imagePreview,width: 200,height: 200,),
-           //_pickedImage != null
-              kIsWeb
+          //PARA QUE FUNCIONE EN WEB LO COMENTO DE MOMENTO POR SUSTITUIRLO POR OTRA COSA
+              /*kIsWeb
               ? Image.memory(webImage, width: 200, height: 200)
-              : Image.file(_pickedImage,width: 200,height:200 ,),
+              : Image.file(_pickedImage,width: 200,height:200 ,),*/
+          _pickedImage.path.isNotEmpty
+              ? Image.file(_pickedImage, width: 200, height: 200)
+              : Icon(
+            Icons.photo,
+            size: 200,
+            color: Colors.grey,
+          ),
           Row(
             children: [
               CButton( text: "Galeria",onPressed: _pickImage),
