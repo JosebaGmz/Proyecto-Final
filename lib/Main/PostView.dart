@@ -1,4 +1,6 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../FirestoreObjects/FbPost.dart';
 import '../Singletone/DataHolder.dart';
@@ -32,7 +34,9 @@ class _PostViewState extends State<PostView> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-
+    final currentUserUid = FirebaseAuth.instance.currentUser?.uid;
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    CollectionReference<Map<String, dynamic>> coleccionesRef = db.collection("ColeccionZapatillas");
     return Scaffold(
       appBar: AppBar(title: Text(DataHolder().sNombre),centerTitle: true,),
       body: Center(
@@ -43,12 +47,11 @@ class _PostViewState extends State<PostView> {
             Text(_datosPost.talla.toString()),
             Text(_datosPost.marca),
             Image.network(_datosPost.sUrlImg,width: 200,height: 200,),
-            TextButton(onPressed: null, child: Text("Like"))
+
           ],
         )
-            :
-        CircularProgressIndicator(),
-      )
+            : CircularProgressIndicator(),
+      ),
     );
 
   }

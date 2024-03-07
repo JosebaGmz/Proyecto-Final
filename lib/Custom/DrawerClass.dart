@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:proyecto_psp_pmdm/Main/HomeView.dart';
+import 'package:proyecto_psp_pmdm/Main/PerfilView.dart';
 
 class DrawerClass extends StatefulWidget {
   const DrawerClass({Key? key}) : super(key: key);
@@ -62,31 +63,50 @@ class _MENU_SCREENState extends State<MENU_SCREEN> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      //color: Colors.indigo,
       width: 2560,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-
-              color: Colors.indigo,
-            ),
-            child: Text(
-                style: TextStyle(color: Colors.white),
-                'Header'
+          InkWell(
+            onTap: () {
+              // Manejar el evento cuando se presiona el icono de la foto de perfil
+              // Aquí puedes navegar a otra pantalla, abrir un diálogo, etc.
+              // Por ejemplo, puedes abrir una pantalla de perfil:
+              Navigator.of(context).pushNamed('/perfilview');
+            },
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.black,
+              ),
+              child: Row(
+                children: [
+                  // Icono de foto de perfil
+                  Icon(
+                    Icons.account_circle,
+                    color: Colors.white,
+                    size: 48, // Tamaño del icono
+                  ),
+                  SizedBox(width: 16), // Espacio entre el icono y el texto
+                  // Texto en el DrawerHeader
+                  Text(
+                    'Header',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24, // Tamaño del texto
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.settings,color: Colors.black,),
+            leading: Icon(Icons.settings, color: Colors.black),
             selectedColor: Colors.blue,
             selected: true,
             title: const Text('MAPA'),
             onTap: () {
               widget.onItemTap!(0);
-
             },
-
           ),
           ListTile(
             leading: Icon(Icons.accessible_forward_rounded, color: Colors.red),

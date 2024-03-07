@@ -10,7 +10,7 @@ import 'package:proyecto_psp_pmdm/Singletone/FirebaseAdmin.dart';
 import '../FirestoreObjects/FbUsuario.dart';
 import '../Singletone/DataHolder.dart';
 
-class PerfilView extends StatelessWidget{
+class PerfilCreateView extends StatelessWidget{
 
   TextEditingController tecNombre=TextEditingController();
   TextEditingController tecEdad=TextEditingController();

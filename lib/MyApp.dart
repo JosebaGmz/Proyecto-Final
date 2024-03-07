@@ -7,10 +7,11 @@ import 'package:proyecto_psp_pmdm/Main/MapaView.dart';
 import 'package:proyecto_psp_pmdm/Main/PostCreateView.dart';
 import 'package:proyecto_psp_pmdm/Main/PostView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/LoginView.dart';
-import 'package:proyecto_psp_pmdm/OnBoarding/PerfilView.dart';
+import 'package:proyecto_psp_pmdm/OnBoarding/PerfilCreateView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/RegisterView.dart';
 import 'package:proyecto_psp_pmdm/Singletone/DataHolder.dart';
 
+import 'Main/PerfilView.dart';
 import 'OnBoarding/PhoneLoginView.dart';
 
 class MyApp extends StatelessWidget{
@@ -23,12 +24,13 @@ class MyApp extends StatelessWidget{
         routes: {
           '/loginview':(context) => LoginView(),
           '/registerview':(context) => RegisterView(),
-          '/perfilview':(context) => PerfilView(),
+          '/perfilcreateview':(context) => PerfilCreateView(),
           '/homeview':(context) => HomeView(),
           '/drawerview':(context) => DrawerClass(),
           '/postview':(context) => PostView(),
           '/postcreateview':(context) => PostCreateView(),
           '/mapaview':(context) => MapaView(),
+          '/perfilview':(context) => PerfilView(),
         },
         initialRoute: '/loginview',
         debugShowCheckedModeBanner: false,
@@ -38,12 +40,13 @@ class MyApp extends StatelessWidget{
         routes: {
           '/loginview':(context) => PhoneLoginView(),
           '/registerview':(context) => RegisterView(),
-          '/perfilview':(context) => PerfilView(),
+          '/perfilcreateview':(context) => PerfilCreateView(),
           '/homeview':(context) => HomeView(),
           '/drawerview':(context) => DrawerClass(),
           '/postview':(context) => PostView(),
           '/postcreateview':(context) => PostCreateView(),
           '/mapaview':(context) => MapaView(),
+          '/perfilview':(context) => PerfilView(),
         },
         initialRoute: '/loginview',
         debugShowCheckedModeBanner: false,

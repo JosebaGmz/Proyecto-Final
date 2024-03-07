@@ -34,7 +34,7 @@ class LoginView extends StatelessWidget{
         Navigator.of(_context).popAndPushNamed("/drawerview");
       }
       else{
-        Navigator.of(_context).popAndPushNamed("/perfilview");
+        Navigator.of(_context).popAndPushNamed("/perfilcreateview");
       }
 
     } on FirebaseAuthException catch (e) {

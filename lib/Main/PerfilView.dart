@@ -14,12 +14,12 @@ import '../FirestoreObjects/FbPost.dart';
 import '../Singletone/DataHolder.dart';
 import '../Singletone/FirebaseAdmin.dart';
 
-class HomeView extends StatefulWidget{
+class PerfilView extends StatefulWidget{
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<PerfilView> createState() => _PerfilViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _PerfilViewState extends State<PerfilView> {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   late List<FbPost> posts = [];
@@ -48,16 +48,16 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    FirebaseAdmin().descargarPosts();
+    FirebaseAdmin().descargarPostsUnicos();
     if(!kIsWeb){
       DataHolder().suscribeACambiosGPSUsuario();
     }
-      setearList();
+    setearList();
   }
 
   Future<void> setearList()async{
     try {
-      List<FbPost> anunciosDescargadas = await DataHolder().fbadmin.descargarPosts();
+      List<FbPost> anunciosDescargadas = await DataHolder().fbadmin.descargarPostsUnicos();
       setState(() {
         posts = anunciosDescargadas;
       });
@@ -73,22 +73,18 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => ZoomDrawer.of(context)!.toggle(),
-            icon: const Icon(Icons.menu)
+            onPressed: () => Navigator.of(context).popAndPushNamed("/drawerview"),
+            icon: const Icon(Icons.arrow_back)
         ),
-        title: Text('Snkrs Sell'), // Título del AppBar
+        title: Text('Mi Perfil'), // Título del AppBar
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
       body: Center(
         child: celdasOLista(bIsList), // Contenido de la pantalla principal
       ),
-      bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
-      floatingActionButton:FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed("/postcreateview");
-        },
-        child: Icon(Icons.add),
+      bottomNavigationBar: BottomMenu(
+          onBotonesClicked: this.onBottonMenuPressed
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
     );
@@ -98,8 +94,6 @@ class _HomeViewState extends State<HomeView> {
     DataHolder().selectedPost=posts[index];
     DataHolder().saveSelectedPostInCache();
     Navigator.of(context).pushNamed("/postview");
-    //print("EL ELEMENTO DE LA LISTA QUE ACABA DE TOCARSE ES> "+index.toString());
-
   }
 
   Widget? creadorDeItemLista(BuildContext context, int index){
@@ -147,14 +141,14 @@ class _HomeViewState extends State<HomeView> {
     } else {
       return
         GridView.builder(
-        padding: const EdgeInsets.all(20),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            padding: const EdgeInsets.all(20),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 1,
               mainAxisExtent: 400,),
-          itemCount: posts.length,
-          scrollDirection: Axis.vertical,
-          itemBuilder: creadorDeItemMatriz
-      );
+            itemCount: posts.length,
+            scrollDirection: Axis.vertical,
+            itemBuilder: creadorDeItemMatriz
+        );
     }
   }
 }

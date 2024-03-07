@@ -132,4 +132,43 @@ class DataHolder {
     usuario!.geoloc=GeoPoint(position!.latitude, position.longitude);
     fbadmin.actualizarPerfilUsuario(usuario!);
   }
+
+  Future<void> updateZapatillasStock(Map<String, dynamic> dataToUpdate) async {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    CollectionReference<Map<String, dynamic>> zapatillasRef =
+    db.collection("ColeccionZapatillas").doc(uid).collection("ZapatillasStock");
+
+    QuerySnapshot<Map<String, dynamic>> snapshot = await zapatillasRef.get();
+    snapshot.docs.forEach((doc) {
+      zapatillasRef.doc(doc.id).update(dataToUpdate);
+    });
+  }
+
+  Future<void> deleteZapatilla(String zapatillaId) async {
+    try {
+      FirebaseFirestore db = FirebaseFirestore.instance;
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      String userId = uid;
+
+      DocumentReference zapatillaRef = db
+          .collection("ColeccionZapatillas")
+          .doc(userId)
+          .collection("ZapatillasStock")
+          .doc(zapatillaId);
+
+      DocumentSnapshot zapatillaSnapshot = await zapatillaRef.get();
+
+      // Verificar si el documento existe antes de intentar borrarlo
+      if (zapatillaSnapshot.exists) {
+        // Borrar el documento
+        await zapatillaRef.delete();
+        print("Documento eliminado exitosamente.");
+      } else {
+        print("El documento no existe.");
+      }
+    } catch (error) {
+      print("Error al eliminar el post: $error");
+      // Manejar el error según sea necesario
+    }
+  }
 }

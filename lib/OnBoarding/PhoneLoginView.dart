@@ -96,16 +96,29 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Column(
-        children: [
-          CTextF(hint: "Numero Telefono",tController: tecPhone, password: false,),
-          CButton(onPressed: enviarTelefonoPressed, text: "Enviar",),
-          if(blMostrarVerificacion)
-            CTextF(hint: "Numero Verificacion",tController: tecVerify,password: false,),
-          if(blMostrarVerificacion)
-            CButton(onPressed: enviarVerifyPressed, text: "Enviar",)
-        ],
+      appBar: AppBar(
+        title: const Text("Iniciar Sesion",
+          style: TextStyle(
+              color: Colors.white
+          ),
+        ),
+        centerTitle: true,
+        shadowColor: Colors.white,
+        backgroundColor: Colors.black,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            CTextF(hint: "Numero Telefono",tController: tecPhone, password: false,),
+            CButton(onPressed: enviarTelefonoPressed, text: "Enviar",),
+            if(blMostrarVerificacion)
+              CTextF(hint: "Numero Verificacion",tController: tecVerify,password: false,),
+            if(blMostrarVerificacion)
+              CButton(onPressed: enviarVerifyPressed, text: "Enviar",)
+          ],
 
+        ),
       ),
 
     );
