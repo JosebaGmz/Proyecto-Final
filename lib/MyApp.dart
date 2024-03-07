@@ -10,6 +10,7 @@ import 'package:proyecto_psp_pmdm/OnBoarding/LoginView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/PerfilCreateView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/RegisterView.dart';
 import 'package:proyecto_psp_pmdm/Singletone/DataHolder.dart';
+import 'package:proyecto_psp_pmdm/Splash/SplashView.dart';
 
 import 'Main/PerfilView.dart';
 import 'OnBoarding/PhoneLoginView.dart';
@@ -31,8 +32,9 @@ class MyApp extends StatelessWidget{
           '/postcreateview':(context) => PostCreateView(),
           '/mapaview':(context) => MapaView(),
           '/perfilview':(context) => PerfilView(),
+          '/splashview':(context) => SplashView(),
         },
-        initialRoute: '/loginview',
+        initialRoute: '/splashview',
         debugShowCheckedModeBanner: false,
       );
     }else{
@@ -47,8 +49,9 @@ class MyApp extends StatelessWidget{
           '/postcreateview':(context) => PostCreateView(),
           '/mapaview':(context) => MapaView(),
           '/perfilview':(context) => PerfilView(),
+          '/splashview':(context) => SplashView(),
         },
-        initialRoute: '/loginview',
+        initialRoute: '/splashview',
         debugShowCheckedModeBanner: false,
       );
     }
