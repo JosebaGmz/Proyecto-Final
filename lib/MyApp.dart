@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget{
           '/perfilview':(context) => PerfilView(),
           '/splashview':(context) => SplashView(),
         },
-        initialRoute: '/splashview',
+        initialRoute: '/loginview',
         debugShowCheckedModeBanner: false,
       );
     }else{
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget{
           '/perfilview':(context) => PerfilView(),
           '/splashview':(context) => SplashView(),
         },
-        initialRoute: '/splashview',
+        initialRoute: '/loginview',
         debugShowCheckedModeBanner: false,
       );
     }

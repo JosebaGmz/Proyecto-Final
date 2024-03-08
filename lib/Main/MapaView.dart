@@ -36,16 +36,16 @@ class MapaViewState extends State<MapaView> {
                   () => VerticalDragGestureRecognizer())),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: Text('To the lake!'),
+        onPressed: _goToTheStore,
+        label: Text('A la Tienda!'),
         icon: Icon(Icons.directions_boat),
       ),
     );
   }
 
-  Future<void> _goToTheLake() async {
+  Future<void> _goToTheStore() async {
     CameraPosition _kUser = CameraPosition(
-      target: LatLng(40.4709546, -3.4700426),
+      target: LatLng(40.470872222382994, -3.4465353454018297),
       tilt: 59.440717697143555,
       zoom: 19.151926040649414,
     );
@@ -54,7 +54,7 @@ class MapaViewState extends State<MapaView> {
 
     Marker marcador = Marker(
       markerId: MarkerId('1'),
-      position: LatLng(40.4709546, -3.4700426),
+      position: LatLng(40.470872222382994, -3.4465353454018297),
     );
 
     setState(() {
