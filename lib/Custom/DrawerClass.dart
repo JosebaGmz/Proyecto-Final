@@ -1,10 +1,15 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:proyecto_psp_pmdm/Main/HomeView.dart';
 import 'package:proyecto_psp_pmdm/Main/PerfilView.dart';
+import 'package:proyecto_psp_pmdm/SingleTone/DataHolder.dart';
+
+import '../FirestoreObjects/FbUsuario.dart';
 
 class DrawerClass extends StatefulWidget {
   const DrawerClass({Key? key}) : super(key: key);
@@ -58,7 +63,44 @@ class MENU_SCREEN extends StatefulWidget {
 
 class _MENU_SCREENState extends State<MENU_SCREEN> {
 
+  String? userName = '';
 
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName();
+  }
+
+  void _loadUserName() async {
+    String? name = await getUserName();
+    setState(() {
+      userName = name;
+    });
+  }
+
+  Future<String?> getUserName() async {
+    String? userName;
+
+    try {
+      // Obtén el ID del usuario actualmente logueado
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      // Accede al documento del usuario en Firestore
+      DocumentSnapshot<Map<String, dynamic>> userSnapshot =
+      await FirebaseFirestore.instance.collection('Usuarios').doc(uid).get();
+
+      // Convierte el documento en un objeto FbUsuario
+      FbUsuario user = FbUsuario.fromFirestore(userSnapshot, null);
+
+      // Obtén el nombre del usuario del objeto FbUsuario
+      userName = user.nombre;
+    } catch (e) {
+      // Manejar cualquier error
+      print('Error al obtener el nombre del usuario: $e');
+    }
+
+    return userName;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +131,7 @@ class _MENU_SCREENState extends State<MENU_SCREEN> {
                   SizedBox(width: 16), // Espacio entre el icono y el texto
                   // Texto en el DrawerHeader
                   Text(
-                    'Header',
+                    userName ?? 'cargando...',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24, // Tamaño del texto

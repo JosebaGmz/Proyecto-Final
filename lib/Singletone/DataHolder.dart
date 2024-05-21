@@ -133,15 +133,13 @@ class DataHolder {
     fbadmin.actualizarPerfilUsuario(usuario!);
   }
 
-  Future<void> updateZapatillasStock(Map<String, dynamic> dataToUpdate) async {
+  Future<void> updateZapatillasStock(Map<String, dynamic> dataToUpdate, String id) async {
     String uid = FirebaseAuth.instance.currentUser!.uid;
     CollectionReference<Map<String, dynamic>> zapatillasRef =
     db.collection("ColeccionZapatillas").doc(uid).collection("ZapatillasStock");
 
-    QuerySnapshot<Map<String, dynamic>> snapshot = await zapatillasRef.get();
-    snapshot.docs.forEach((doc) {
-      zapatillasRef.doc(doc.id).update(dataToUpdate);
-    });
+    // Actualiza solo el documento con el ID proporcionado
+    await zapatillasRef.doc(id).update(dataToUpdate);
   }
 
   Future<void> deleteZapatilla(String zapatillaId) async {

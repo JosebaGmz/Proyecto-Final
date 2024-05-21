@@ -7,6 +7,7 @@ import 'package:proyecto_psp_pmdm/Main/MapaView.dart';
 import 'package:proyecto_psp_pmdm/Main/PostCreateView.dart';
 import 'package:proyecto_psp_pmdm/Main/PostView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/LoginView.dart';
+import 'package:proyecto_psp_pmdm/OnBoarding/LoginViewNew.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/PerfilCreateView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/RegisterView.dart';
 import 'package:proyecto_psp_pmdm/Singletone/DataHolder.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget{
     }else{
       materialApp = MaterialApp(title: "SNKRS APP",
         routes: {
-          '/loginview':(context) => PhoneLoginView(),
+          '/loginview':(context) => LoginViewNew(),
           '/registerview':(context) => RegisterView(),
           '/perfilcreateview':(context) => PerfilCreateView(),
           '/homeview':(context) => HomeView(),

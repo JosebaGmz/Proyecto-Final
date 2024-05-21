@@ -98,7 +98,7 @@ class PostGridCellView extends StatelessWidget {
                   'color': nuevoColor,
                   'precio': nuevoPrecio,
                 };
-                DataHolder().updateZapatillasStock(dataToUpdate);
+                DataHolder().updateZapatillasStock(dataToUpdate,datosPost.id.toString());
                 Future.delayed(const Duration(seconds: 2), () {
                   Navigator.of(context).popAndPushNamed("/drawerview");
                 });
@@ -203,7 +203,10 @@ class PostGridCellView extends StatelessWidget {
                     if (value == 'modificar') {
                       _mostrarDialogoModificar(context);
                     } else if (value == 'borrar') {
-                     await DataHolder().deleteZapatilla(datosPost.precio.toString());
+                     DataHolder().deleteZapatilla(datosPost.id.toString());
+                     Future.delayed(const Duration(seconds: 2), () {
+                       Navigator.of(context).popAndPushNamed("/perfilview");
+                     });
                     }
                   },
                 ),

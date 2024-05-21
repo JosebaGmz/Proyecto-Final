@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -72,8 +73,11 @@ class _PostCreateViewState extends State<PostCreateView> {
     }
     String imgUrl=await rutaAFicheroEnNube.getDownloadURL();
 
+    // Obtener el ID del documento
+    DocumentReference postRef = await FirebaseFirestore.instance.collection("ColeccionZapatillas").doc(FirebaseAuth.instance.currentUser!.uid).collection("ZapatillasStock").add({});
 
     FbPost postNuevo=new FbPost(
+        id: postRef.id,
         titulo: tcTitulo.text,
         cuerpo: tcCuerpo.text,
         sUrlImg: imgUrl,
@@ -81,7 +85,8 @@ class _PostCreateViewState extends State<PostCreateView> {
         marca: tcMarca.text,
         color: tcColor.text,
         precio:int.parse(tcPrecio.text));
-    DataHolder().insertPostEnFB(postNuevo);
+    await postRef.set(postNuevo.toFirestore());
+    //DataHolder().insertPostEnFB(postNuevo);
 
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).popAndPushNamed("/drawerview");
