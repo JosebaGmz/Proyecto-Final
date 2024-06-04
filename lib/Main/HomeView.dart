@@ -14,52 +14,57 @@ import '../FirestoreObjects/FbPost.dart';
 import '../Singletone/DataHolder.dart';
 import '../Singletone/FirebaseAdmin.dart';
 
-class HomeView extends StatefulWidget{
+class HomeView extends StatefulWidget {
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-
   FirebaseFirestore db = FirebaseFirestore.instance;
   late List<FbPost> posts = [];
-  final Map<String,FbPost> mapPosts = Map();
+  List<FbPost> filteredPosts = [];
+  final Map<String, FbPost> mapPosts = Map();
   String userId = FirebaseAuth.instance.currentUser!.uid;
-  bool bIsList=false;
+  TextEditingController searchController = TextEditingController();
 
   void onBottonMenuPressed(int indice) {
-    // TODO: implement onBottonMenuPressed
-    print("------>>>> HOME!!!!!!"+indice.toString()+"---->>> ");
+    print("------>>>> HOME!!!!!!" + indice.toString() + "---->>> ");
     setState(() {
-      if(indice == 0){
-        bIsList=true;
-      }
-      else if(indice==1){
-        bIsList=false;
-      }
-      else if(indice==2){
-        exit(0);
+      if (indice == 0) {
+        Navigator.of(context).popAndPushNamed("/drawerview");
+      } else if (indice == 1) {
+        // Handle other actions
+      } else if (indice == 2) {
+        Navigator.of(context).pushNamed('/wishlist');
+      } else if (indice == 3) {
+        Navigator.of(context).pushNamed('/perfilview');
       }
     });
-
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     FirebaseAdmin().descargarPosts();
-    if(!kIsWeb){
+    if (!kIsWeb) {
       DataHolder().suscribeACambiosGPSUsuario();
     }
-      setearList();
+    setearList();
+    searchController.addListener(_filterPosts);
   }
 
-  Future<void> setearList()async{
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  Future<void> setearList() async {
     try {
       List<FbPost> anunciosDescargadas = await DataHolder().fbadmin.descargarPosts();
       setState(() {
         posts = anunciosDescargadas;
+        filteredPosts = posts; // Inicialmente, mostrar todos los posts
       });
 
       print("Número de anuncios descargados: ${posts.length}");
@@ -68,23 +73,80 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
+  void _filterPosts() {
+    String query = searchController.text.toLowerCase();
+    setState(() {
+      if (query.isEmpty) {
+        filteredPosts = posts;
+      } else {
+        filteredPosts = posts.where((post) {
+          return post.titulo.toLowerCase().contains(query);
+        }).toList();
+      }
+    });
+  }
+
+  void _sortPostsByPrice(bool ascending) {
+    setState(() {
+      filteredPosts.sort((a, b) => ascending ? a.precio.compareTo(b.precio) : b.precio.compareTo(a.precio));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => ZoomDrawer.of(context)!.toggle(),
-            icon: const Icon(Icons.menu)
+          onPressed: () => ZoomDrawer.of(context)!.toggle(),
+          icon: const Icon(Icons.menu),
         ),
-        title: Text('Snkrs Sell'), // Título del AppBar
-        automaticallyImplyLeading: false,
+        backgroundColor: Colors.blueAccent,
+        title: Container(
+          decoration: BoxDecoration(
+            color: Colors.white, // Background color of the search bar
+            borderRadius: BorderRadius.circular(30), // Border radius
+          ),
+          child: TextField(
+            controller: searchController,
+            decoration: InputDecoration(
+              icon: Icon(Icons.search, size: 25),
+              hintText: 'Buscar...',
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(horizontal: kIsWeb ? -5 : -10, vertical: kIsWeb ? 15 : 10),
+              hintStyle: TextStyle(color: Colors.grey),
+            ),
+            style: TextStyle(color: Colors.black, fontSize: 18), // Text color
+          ),
+        ),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (String result) {
+              if (result == 'price_asc') {
+                _sortPostsByPrice(true);
+              } else if (result == 'price_desc') {
+                _sortPostsByPrice(false);
+              }
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'price_asc',
+                child: Text('Precio: Menor a Mayor'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'price_desc',
+                child: Text('Precio: Mayor a Menor'),
+              ),
+            ],
+            icon: Icon(Icons.filter_list,size: 30),
+          ),
+        ],
         centerTitle: true,
       ),
       body: Center(
-        child: celdasOLista(bIsList), // Contenido de la pantalla principal
+        child: celdas(), // Contenido de la pantalla principal
       ),
       bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
-      floatingActionButton:FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).pushNamed("/postcreateview");
         },
@@ -94,67 +156,36 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  void onItemListClicked(int index){
-    DataHolder().selectedPost=posts[index];
+  void onItemListClicked(int index) {
+    DataHolder().selectedPost = filteredPosts[index];
     DataHolder().saveSelectedPostInCache();
     Navigator.of(context).pushNamed("/postview");
-    //print("EL ELEMENTO DE LA LISTA QUE ACABA DE TOCARSE ES> "+index.toString());
-
   }
 
-  Widget? creadorDeItemLista(BuildContext context, int index){
-    return PostCellView(sText: posts[index].titulo,
-        sUrlImg: posts[index].sUrlImg,
-        dFontSize: 30,
-        iColorCode: 0,
-        iPosicion: index,
-        onItemListClickedFun:onItemListClicked
+  Widget? creadorDeItemMatriz(BuildContext context, int index) {
+    return PostGridCellView(
+      sText: filteredPosts[index].titulo,
+      datosPost: filteredPosts[index],
+      precio: filteredPosts[index].precio,
+      sUrlImg: filteredPosts[index].sUrlImg,
+      dFontSize: 28,
+      iColorCode: 0,
+      dHeight: DataHolder().platformAdmin.getScreenHeight() * 0.5,
+      iPosicion: index,
+      onItemListClickedFun: onItemListClicked,
     );
   }
 
-  Widget? creadorDeItemMatriz(BuildContext context, int index){
-    return PostGridCellView(sText: posts[index].titulo,
-        datosPost: posts[index],
-        precio: posts[index].precio,
-        sUrlImg: posts[index].sUrlImg,
-        dFontSize: 28,
-        iColorCode: 0,
-        dHeight: DataHolder().platformAdmin.getScreenHeight()*0.5,
-        iPosicion: index,
-        onItemListClickedFun:onItemListClicked
+  Widget celdas() {
+    return GridView.builder(
+      padding: const EdgeInsets.all(20),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: !kIsWeb ? 1 : 4,
+        mainAxisExtent: !kIsWeb ? 400 : 461,
+      ),
+      itemCount: filteredPosts.length,
+      scrollDirection: Axis.vertical,
+      itemBuilder: creadorDeItemMatriz,
     );
-  }
-
-  Widget creadorDeSeparadorLista(BuildContext context, int index) {
-    //return Divider(thickness: 5,);
-    return Column(
-      children: [
-        Divider(),
-        //CircularProgressIndicator(),
-        //Image.network("https://media.tenor.com/zBc1XhcbTSoAAAAC/nyan-cat-rainbow.gif")
-      ],
-    );
-  }
-
-  Widget celdasOLista(bool isList) {
-    if (isList) {
-      return ListView.separated(
-        padding: EdgeInsets.all(8),
-        itemCount: posts.length,
-        itemBuilder: creadorDeItemLista,
-        separatorBuilder: creadorDeSeparadorLista,
-      );
-    } else {
-      return
-        GridView.builder(
-        padding: const EdgeInsets.all(20),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              mainAxisExtent: 400,),
-          itemCount: posts.length,
-          scrollDirection: Axis.vertical,
-          itemBuilder: creadorDeItemMatriz
-      );
-    }
   }
 }

@@ -6,6 +6,7 @@ import 'package:proyecto_psp_pmdm/Main/HomeView.dart';
 import 'package:proyecto_psp_pmdm/Main/MapaView.dart';
 import 'package:proyecto_psp_pmdm/Main/PostCreateView.dart';
 import 'package:proyecto_psp_pmdm/Main/PostView.dart';
+import 'package:proyecto_psp_pmdm/Main/WishlistView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/LoginView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/LoginViewNew.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/PerfilCreateView.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget{
     if(kIsWeb){
       materialApp = MaterialApp(title: "SNKRS APP",
         routes: {
-          '/loginview':(context) => LoginView(),
+          '/loginview':(context) => LoginViewNew(),
           '/registerview':(context) => RegisterView(),
           '/perfilcreateview':(context) => PerfilCreateView(),
           '/homeview':(context) => HomeView(),
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget{
           '/mapaview':(context) => MapaView(),
           '/perfilview':(context) => PerfilView(),
           '/splashview':(context) => SplashView(),
+          '/wishlist' :(context) => WishlistView(),
         },
         initialRoute: '/loginview',
         debugShowCheckedModeBanner: false,
@@ -51,6 +53,7 @@ class MyApp extends StatelessWidget{
           '/mapaview':(context) => MapaView(),
           '/perfilview':(context) => PerfilView(),
           '/splashview':(context) => SplashView(),
+          '/wishlist' :(context) => WishlistView()
         },
         initialRoute: '/loginview',
         debugShowCheckedModeBanner: false,

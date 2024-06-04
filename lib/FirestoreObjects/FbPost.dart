@@ -10,6 +10,7 @@ class FbPost{
   final String color;
   final int talla;
   final int precio;
+  final bool isFavorite;
 
   FbPost ({
     this.id, // Actualización del constructor para incluir el campo id
@@ -19,7 +20,8 @@ class FbPost{
     required this.talla,
     required this.marca,
     required this.color,
-    required this.precio
+    required this.precio,
+    this.isFavorite = false
   });
 
   factory FbPost.fromFirestore(
@@ -35,7 +37,8 @@ class FbPost{
         talla: data?['talla'] ?? 0,
         marca: data? ['marca'],
         color: data? ['color'],
-        precio: data? ['precio'] ?? 1
+        precio: data? ['precio'] ?? 1,
+        isFavorite: data?['isFavorite'] ?? false
     );
   }
 
@@ -49,6 +52,7 @@ class FbPost{
       if(marca != null) "marca": marca,
       if(color != null) "color": color,
       if(precio != null) "precio": precio,
+      if(isFavorite != null) "isFavorite": isFavorite
     };
   }
 }

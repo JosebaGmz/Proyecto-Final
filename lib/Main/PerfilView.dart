@@ -25,20 +25,20 @@ class _PerfilViewState extends State<PerfilView> {
   late List<FbPost> posts = [];
   final Map<String,FbPost> mapPosts = Map();
   String userId = FirebaseAuth.instance.currentUser!.uid;
-  bool bIsList=false;
 
   void onBottonMenuPressed(int indice) {
     // TODO: implement onBottonMenuPressed
-    print("------>>>> HOME!!!!!!"+indice.toString()+"---->>> ");
     setState(() {
       if(indice == 0){
-        bIsList=true;
+        Navigator.of(context).popAndPushNamed("/drawerview");
       }
       else if(indice==1){
-        bIsList=false;
+
       }
       else if(indice==2){
-        exit(0);
+
+      }else if(indice == 3){
+        Navigator.of(context).pushNamed('/perfilview');
       }
     });
 
@@ -76,12 +76,13 @@ class _PerfilViewState extends State<PerfilView> {
             onPressed: () => Navigator.of(context).popAndPushNamed("/drawerview"),
             icon: const Icon(Icons.arrow_back)
         ),
-        title: Text('Mi Perfil'), // Título del AppBar
+        backgroundColor: Colors.blueAccent,
+        title: Text('Mi Perfil',style: TextStyle(color: Colors.white),), // Título del AppBar
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
       body: Center(
-        child: celdasOLista(bIsList), // Contenido de la pantalla principal
+        child: celdas(), // Contenido de la pantalla principal
       ),
       bottomNavigationBar: BottomMenu(
           onBotonesClicked: this.onBottonMenuPressed
@@ -94,16 +95,6 @@ class _PerfilViewState extends State<PerfilView> {
     DataHolder().selectedPost=posts[index];
     DataHolder().saveSelectedPostInCache();
     Navigator.of(context).pushNamed("/postview");
-  }
-
-  Widget? creadorDeItemLista(BuildContext context, int index){
-    return PostCellView(sText: posts[index].titulo,
-        sUrlImg: posts[index].sUrlImg,
-        dFontSize: 30,
-        iColorCode: 0,
-        iPosicion: index,
-        onItemListClickedFun:onItemListClicked
-    );
   }
 
   Widget? creadorDeItemMatriz(BuildContext context, int index){
@@ -119,36 +110,16 @@ class _PerfilViewState extends State<PerfilView> {
     );
   }
 
-  Widget creadorDeSeparadorLista(BuildContext context, int index) {
-    //return Divider(thickness: 5,);
-    return Column(
-      children: [
-        Divider(),
-        //CircularProgressIndicator(),
-        //Image.network("https://media.tenor.com/zBc1XhcbTSoAAAAC/nyan-cat-rainbow.gif")
-      ],
-    );
-  }
-
-  Widget celdasOLista(bool isList) {
-    if (isList) {
-      return ListView.separated(
-        padding: EdgeInsets.all(8),
-        itemCount: posts.length,
-        itemBuilder: creadorDeItemLista,
-        separatorBuilder: creadorDeSeparadorLista,
-      );
-    } else {
+  Widget celdas() {
       return
         GridView.builder(
             padding: const EdgeInsets.all(20),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              mainAxisExtent: 400,),
+              crossAxisCount: !kIsWeb ? 1 : 4,
+              mainAxisExtent: !kIsWeb ? 400 : 461,),
             itemCount: posts.length,
             scrollDirection: Axis.vertical,
             itemBuilder: creadorDeItemMatriz
         );
-    }
   }
 }

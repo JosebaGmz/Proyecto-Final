@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:proyecto_psp_pmdm/Custom/LikeButton.dart';
 import 'package:proyecto_psp_pmdm/FirestoreObjects/FbPost.dart';
 
 import '../SingleTone/DataHolder.dart';
+import '../SingleTone/FirebaseAdmin.dart';
 
-class PostGridCellView extends StatelessWidget {
+class PostGridCellView extends StatefulWidget {
   final FbPost datosPost;
   final String sText;
   final int iColorCode;
@@ -15,7 +17,8 @@ class PostGridCellView extends StatelessWidget {
   final String sUrlImg;
   final Function(int indice) onItemListClickedFun;
 
-  const PostGridCellView({super.key,
+  const PostGridCellView({
+    super.key,
     required this.sText,
     required this.iColorCode,
     required this.dFontSize,
@@ -24,8 +27,21 @@ class PostGridCellView extends StatelessWidget {
     required this.datosPost,
     required this.onItemListClickedFun,
     required this.precio,
-    required this.sUrlImg
+    required this.sUrlImg,
   });
+
+  @override
+  _PostGridCellViewState createState() => _PostGridCellViewState();
+}
+
+class _PostGridCellViewState extends State<PostGridCellView> {
+  bool isFavorite = false;
+
+  @override
+  void initState(){
+    super.initState();
+    isFavorite = widget.datosPost.isFavorite;
+  }
 
   void _mostrarDialogoModificar(BuildContext context) {
     String? nuevoTitulo;
@@ -36,7 +52,7 @@ class PostGridCellView extends StatelessWidget {
     String? nuevoColor;
     int? nuevoPrecio;
 
-    nuevaUrlImg = datosPost.sUrlImg; // Conserva la misma URL de la imagen actual
+    nuevaUrlImg = widget.datosPost.sUrlImg; // Conserva la misma URL de la imagen actual
 
     showDialog(
       context: context,
@@ -48,32 +64,32 @@ class PostGridCellView extends StatelessWidget {
               children: <Widget>[
                 TextField(
                   onChanged: (value) => nuevoTitulo = value,
-                  decoration: InputDecoration(labelText: 'Título', hintText: datosPost.titulo),
+                  decoration: InputDecoration(labelText: 'Título', hintText: widget.datosPost.titulo),
                 ),
                 TextField(
                   onChanged: (value) => nuevoCuerpo = value,
-                  decoration: InputDecoration(labelText: 'Cuerpo', hintText: datosPost.cuerpo),
+                  decoration: InputDecoration(labelText: 'Cuerpo', hintText: widget.datosPost.cuerpo),
                 ),
                 TextField(
                   controller: TextEditingController(text: nuevaUrlImg), // Utiliza la URL actual como valor inicial
                   onChanged: (value) => nuevaUrlImg = value,
-                  decoration: InputDecoration(labelText: 'URL Imagen', hintText: datosPost.sUrlImg),
+                  decoration: InputDecoration(labelText: 'URL Imagen', hintText: widget.datosPost.sUrlImg),
                 ),
                 TextField(
                   onChanged: (value) => nuevaTalla = int.tryParse(value),
-                  decoration: InputDecoration(labelText: 'Talla', hintText: datosPost.talla.toString()),
+                  decoration: InputDecoration(labelText: 'Talla', hintText: widget.datosPost.talla.toString()),
                 ),
                 TextField(
                   onChanged: (value) => nuevaMarca = value,
-                  decoration: InputDecoration(labelText: 'Marca', hintText: datosPost.marca),
+                  decoration: InputDecoration(labelText: 'Marca', hintText: widget.datosPost.marca),
                 ),
                 TextField(
                   onChanged: (value) => nuevoColor = value,
-                  decoration: InputDecoration(labelText: 'Color', hintText: datosPost.color),
+                  decoration: InputDecoration(labelText: 'Color', hintText: widget.datosPost.color),
                 ),
                 TextField(
                   onChanged: (value) => nuevoPrecio = int.tryParse(value),
-                  decoration: InputDecoration(labelText: 'Precio', hintText: datosPost.precio.toString()),
+                  decoration: InputDecoration(labelText: 'Precio', hintText: widget.datosPost.precio.toString()),
                 ),
               ],
             ),
@@ -98,7 +114,7 @@ class PostGridCellView extends StatelessWidget {
                   'color': nuevoColor,
                   'precio': nuevoPrecio,
                 };
-                DataHolder().updateZapatillasStock(dataToUpdate,datosPost.id.toString());
+                DataHolder().updateZapatillasStock(dataToUpdate, widget.datosPost.id.toString());
                 Future.delayed(const Duration(seconds: 2), () {
                   Navigator.of(context).popAndPushNamed("/drawerview");
                 });
@@ -110,11 +126,23 @@ class PostGridCellView extends StatelessWidget {
     );
   }
 
+  void _toggleFavorite() async {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+
+    // Update Firebase
+    DataHolder().updateZapatillasStock(
+      {'isFavorite': isFavorite},
+      widget.datosPost.id.toString(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onItemListClickedFun(iPosicion);
+        widget.onItemListClickedFun(widget.iPosicion);
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),
@@ -135,7 +163,7 @@ class PostGridCellView extends StatelessWidget {
                     child: AspectRatio(
                       aspectRatio: 16 / 9,
                       child: Image.network(
-                        sUrlImg,
+                        widget.sUrlImg,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -143,7 +171,7 @@ class PostGridCellView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      sText,
+                      widget.sText,
                       style: TextStyle(color: Colors.grey[600]),
                     ),
                   ),
@@ -156,7 +184,7 @@ class PostGridCellView extends StatelessWidget {
                         children: [
                           const SizedBox(height: 5),
                           Text(
-                            '\€' + precio.toString(),
+                            '\€' + widget.precio.toString(),
                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                         ],
@@ -174,9 +202,9 @@ class PostGridCellView extends StatelessWidget {
                           Icons.add,
                           color: Colors.white,
                         ),
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
               Positioned(
@@ -203,13 +231,18 @@ class PostGridCellView extends StatelessWidget {
                     if (value == 'modificar') {
                       _mostrarDialogoModificar(context);
                     } else if (value == 'borrar') {
-                     DataHolder().deleteZapatilla(datosPost.id.toString());
-                     Future.delayed(const Duration(seconds: 2), () {
-                       Navigator.of(context).popAndPushNamed("/perfilview");
-                     });
+                      DataHolder().deleteZapatilla(widget.datosPost.id.toString());
+                      Future.delayed(const Duration(seconds: 2), () {
+                        Navigator.of(context).popAndPushNamed("/perfilview");
+                      });
                     }
                   },
                 ),
+              ),
+              Positioned(
+                bottom: 110,
+                right: 10,
+                child: LikeButton(post: widget.datosPost),
               ),
             ],
           ),
