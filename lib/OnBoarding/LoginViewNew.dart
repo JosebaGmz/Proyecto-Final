@@ -142,12 +142,8 @@ class LoginViewNew extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(border: Border.all(color: TColors.grey),borderRadius: BorderRadius.circular(100)),
                       child: IconButton(
-                        onPressed: (){},
-                        icon: const Image(
-                          width: TSizes.iconMd,
-                          height: TSizes.iconMd,
-                          image: NetworkImage("https://www.imagensempng.com.br/wp-content/uploads/2023/05/278-4.png"),
-
+                        onPressed: (){Navigator.of(context).pushNamed('/phoneloginview');},
+                        icon: const Icon(Icons.phone,size: TSizes.iconMd,
                         ),
                       ),
                     )
@@ -305,12 +301,8 @@ class LoginViewNew extends StatelessWidget {
                                 border: Border.all(color: TColors.grey),
                                 borderRadius: BorderRadius.circular(100)),
                             child: IconButton(
-                              onPressed: () {},
-                              icon: const Image(
-                                width: TSizes.iconMd,
-                                height: TSizes.iconMd,
-                                image: NetworkImage(
-                                    "https://www.imagensempng.com.br/wp-content/uploads/2023/05/278-4.png"),
+                              onPressed: () {Navigator.of(context).pushNamed('/phoneloginview');},
+                              icon: const Icon(Icons.phone,size: TSizes.iconMd,
                               ),
                             ),
                           )

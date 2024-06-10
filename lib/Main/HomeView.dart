@@ -33,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
       if (indice == 0) {
         Navigator.of(context).popAndPushNamed("/drawerview");
       } else if (indice == 1) {
-        // Handle other actions
+        Navigator.of(context).pushNamed('/postcreateview');
       } else if (indice == 2) {
         Navigator.of(context).pushNamed('/wishlist');
       } else if (indice == 3) {
@@ -146,13 +146,6 @@ class _HomeViewState extends State<HomeView> {
         child: celdas(), // Contenido de la pantalla principal
       ),
       bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed("/postcreateview");
-        },
-        child: Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
     );
   }
 

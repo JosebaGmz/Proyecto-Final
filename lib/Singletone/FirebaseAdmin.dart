@@ -72,6 +72,10 @@ class FirebaseAdmin{
   Future<List<FbPost>> descargarPostsFavoritos() async {
     String uid = FirebaseAuth.instance.currentUser!.uid;
     List<FbPost> favoritos = [];
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    List<String> zapatillasDocIds = [];
+    List<String> zapatillasStockDocIds = [];
 
     try {
       // Obtener los documentos de la colección 'likes' para el usuario actual
@@ -84,33 +88,44 @@ class FirebaseAdmin{
       List<String> favoritePostIds = likesSnapshot.docs.map((doc) => doc['postId'] as String).toList();
       print("favoritePostIds: $favoritePostIds");
 
-      // Iterar sobre los documentos de la colección 'ColeccionZapatillas' y sus subcolecciones 'ZapatillasStock'
+      // Obtener los documentos de la colección 'ColeccionZapatillas'
       QuerySnapshot<Map<String, dynamic>> zapatillasSnapshot = await db.collection('ColeccionZapatillas').get();
 
+      // Iterar sobre los documentos de la colección 'ColeccionZapatillas'
       for (var zapatillasDoc in zapatillasSnapshot.docs) {
+        String zapatillasDocId = zapatillasDoc.id;
+        zapatillasDocIds.add(zapatillasDocId);
+
         // Obtener los documentos de la subcolección 'ZapatillasStock' para el documento actual de 'ColeccionZapatillas'
         QuerySnapshot<Map<String, dynamic>> zapatillasStockSnapshot = await db
             .collection('ColeccionZapatillas')
-            .doc(zapatillasDoc.toString())
+            .doc(zapatillasDocId)
             .collection('ZapatillasStock')
             .get();
 
-        print(zapatillasDoc.toString());
-
         // Iterar sobre los documentos de la subcolección 'ZapatillasStock' y agregar los favoritos a la lista
-        zapatillasStockSnapshot.docs.forEach((postDoc) {
+        for (var postDoc in zapatillasStockSnapshot.docs) {
+          String zapatillasStockDocId = postDoc.id;
+          zapatillasStockDocIds.add(zapatillasStockDocId);
+
           if (favoritePostIds.contains(postDoc.id)) {
             FbPost post = FbPost.fromFirestore(postDoc, null);
             favoritos.add(post);
+            print('Post añadido: ${postDoc.id}');
           }
-        });
+        }
       }
-
-      return favoritos;
     } catch (e) {
       print("Error al descargar los posts favoritos: $e");
-      return [];
     }
+
+    print('Número de documentos en ColeccionZapatillas: ${zapatillasDocIds.length}');
+    print('IDs de documentos en ColeccionZapatillas: $zapatillasDocIds');
+    print('Número de documentos en ZapatillasStock: ${zapatillasStockDocIds.length}');
+    print('IDs de documentos en ZapatillasStock: $zapatillasStockDocIds');
+    print('Número de anuncios descargados: ${favoritos.length}');
+
+    return favoritos;
   }
 
 

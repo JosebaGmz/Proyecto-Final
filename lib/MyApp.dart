@@ -6,6 +6,8 @@ import 'package:proyecto_psp_pmdm/Main/HomeView.dart';
 import 'package:proyecto_psp_pmdm/Main/MapaView.dart';
 import 'package:proyecto_psp_pmdm/Main/PostCreateView.dart';
 import 'package:proyecto_psp_pmdm/Main/PostView.dart';
+import 'package:proyecto_psp_pmdm/Main/ProfileEditView.dart';
+import 'package:proyecto_psp_pmdm/Main/SettingsView.dart';
 import 'package:proyecto_psp_pmdm/Main/WishlistView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/LoginView.dart';
 import 'package:proyecto_psp_pmdm/OnBoarding/LoginViewNew.dart';
@@ -36,8 +38,11 @@ class MyApp extends StatelessWidget{
           '/perfilview':(context) => PerfilView(),
           '/splashview':(context) => SplashView(),
           '/wishlist' :(context) => WishlistView(),
+          '/phoneloginview' :(context) => PhoneLoginView(),
+          '/settingsview' :(context) => SettingsView(),
+          '/profileeditview' :(context) => ProfileEditView()
         },
-        initialRoute: '/loginview',
+        initialRoute: '/splashview',
         debugShowCheckedModeBanner: false,
       );
     }else{
@@ -53,9 +58,12 @@ class MyApp extends StatelessWidget{
           '/mapaview':(context) => MapaView(),
           '/perfilview':(context) => PerfilView(),
           '/splashview':(context) => SplashView(),
-          '/wishlist' :(context) => WishlistView()
+          '/wishlist' :(context) => WishlistView(),
+          '/phoneloginview' :(context) => PhoneLoginView(),
+          '/settingsview' :(context) => SettingsView(),
+          '/profileeditview' :(context) => ProfileEditView()
         },
-        initialRoute: '/loginview',
+        initialRoute: '/splashview',
         debugShowCheckedModeBanner: false,
       );
     }

@@ -118,7 +118,12 @@ class DataHolder {
       fbpost_precio = 1;
     }
 
-    selectedPost=FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo, sUrlImg: fbpost_surlimg, talla: fbpost_talla, marca: fbpost_marca, color: fbpost_color,precio: fbpost_precio);
+    String? fbpost_telefono = prefs.getString('fbpost_telefono');
+    if(fbpost_telefono==null){
+      fbpost_telefono="";
+    }
+
+    selectedPost=FbPost(titulo: fbpost_titulo, cuerpo: fbpost_cuerpo, sUrlImg: fbpost_surlimg, talla: fbpost_talla, marca: fbpost_marca, color: fbpost_color,precio: fbpost_precio,telefono: fbpost_telefono);
     return selectedPost;
   }
 
@@ -158,8 +163,18 @@ class DataHolder {
 
       // Verificar si el documento existe antes de intentar borrarlo
       if (zapatillaSnapshot.exists) {
+        // Obtener el campo 'id' del documento
+        String docId = zapatillaSnapshot.get('id') as String;
+
+        // Referencia al documento usando el valor del campo 'id'
+        DocumentReference docToDelete = db
+            .collection("ColeccionZapatillas")
+            .doc(userId)
+            .collection("ZapatillasStock")
+            .doc(docId);
+
         // Borrar el documento
-        await zapatillaRef.delete();
+        await docToDelete.delete();
         print("Documento eliminado exitosamente.");
       } else {
         print("El documento no existe.");

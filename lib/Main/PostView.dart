@@ -22,7 +22,8 @@ class _PostViewState extends State<PostView> {
       talla: 0,
       marca: 'NAN',
       color: 'NAN',
-      precio: 0);
+      precio: 0,
+      telefono: 'NAN');
   bool blPostLoaded = false;
 
   @override
@@ -54,6 +55,26 @@ class _PostViewState extends State<PostView> {
         Navigator.of(context).pushNamed('/perfilview');
       }
     });
+  }
+
+  void showContactDialog(String telefono) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Número de Teléfono'),
+          content: Text(telefono),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cerrar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -123,6 +144,18 @@ class _PostViewState extends State<PostView> {
                           'Precio: \$${_datosPost.precio}',
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
+                    SizedBox(height: 20),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green, // Background color
+                        onPrimary: Colors.white, // Text color
+                      ),
+                      icon: Icon(Icons.phone),
+                      label: Text('Contáctame'),
+                      onPressed: () {
+                        showContactDialog(_datosPost.telefono);
+                      },
+                    ),
                       ],
                     ),
                   ),

@@ -29,7 +29,7 @@ class BottomMenu extends StatelessWidget{
         onDestinationSelected: onBotonesClicked,
         destinations: [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.shop), label: 'Shop'),
+          NavigationDestination(icon: CircleAvatar(backgroundColor: Colors.red,child: Icon(Icons.add,color: Colors.white,),), label: 'Nuevo Post',),
           NavigationDestination(icon: Icon(CupertinoIcons.heart_fill), label: 'WishList'),
           NavigationDestination(icon: Icon(Icons.supervised_user_circle_sharp), label: 'Profile'),
         ],

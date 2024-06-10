@@ -25,7 +25,7 @@ class _DrawerClassState extends State<DrawerClass> {
     print("---->>>> "+indice.toString());
     if(indice==0){
 
-      Navigator.of(context).pushNamed('/mapaview');
+      Navigator.of(context).pushNamed('/settingsview');
     }
     else if(indice==1){
       exit(0);
@@ -145,18 +145,10 @@ class _MENU_SCREENState extends State<MENU_SCREEN> {
             leading: Icon(Icons.settings, color: Colors.black),
             selectedColor: Colors.blue,
             selected: true,
-            title: const Text('MAPA'),
+            title: const Text('Ajustes'),
             onTap: () {
               widget.onItemTap!(0);
             },
-          ),
-          ListTile(
-            leading: Icon(Icons.accessible_forward_rounded, color: Colors.red),
-            title: const Text('Apartado 2'),
-          ),
-          ListTile(
-            leading: Icon(Icons.location_city, color: Colors.black),
-            title: const Text('AQUI UBICACION'),
           ),
         ],
       ),

@@ -11,6 +11,7 @@ class FbPost{
   final int talla;
   final int precio;
   final bool isFavorite;
+  final String telefono;
 
   FbPost ({
     this.id, // Actualización del constructor para incluir el campo id
@@ -21,6 +22,7 @@ class FbPost{
     required this.marca,
     required this.color,
     required this.precio,
+    required this.telefono,
     this.isFavorite = false
   });
 
@@ -38,7 +40,8 @@ class FbPost{
         marca: data? ['marca'],
         color: data? ['color'],
         precio: data? ['precio'] ?? 1,
-        isFavorite: data?['isFavorite'] ?? false
+        isFavorite: data?['isFavorite'] ?? false,
+        telefono:  data?['telefono']
     );
   }
 
@@ -52,7 +55,8 @@ class FbPost{
       if(marca != null) "marca": marca,
       if(color != null) "color": color,
       if(precio != null) "precio": precio,
-      if(isFavorite != null) "isFavorite": isFavorite
+      if(isFavorite != null) "isFavorite": isFavorite,
+      if(telefono != null) "telefono" : telefono,
     };
   }
 }
