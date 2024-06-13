@@ -97,7 +97,7 @@ class LoginViewNew extends StatelessWidget {
                             decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.password),
                                 labelText: "Password",
-                                suffixIcon: Icon(Icons.remove_red_eye_outlined)),
+                               ),
                           ),
                           const SizedBox(height: TSizes.spaceBtwInputFields / 2),
                           Row(
@@ -110,7 +110,7 @@ class LoginViewNew extends StatelessWidget {
                               ),
                               TextButton(
                                   onPressed: () {},
-                                  child: const Text("Olvidaste tu Contraseña?")),
+                                  child: const Text("")),
                             ],
                           ),
                           const SizedBox(height: TSizes.spaceBtwSections),
@@ -231,7 +231,7 @@ class LoginViewNew extends StatelessWidget {
                                         contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                                         prefixIcon: Icon(Icons.password),
                                         labelText: "Password",
-                                        suffixIcon: Icon(Icons.remove_red_eye_outlined)),
+                                        ),
                                   ),
                                 ),
                                 const SizedBox(height: TSizes.spaceBtwInputFields / 2),
@@ -245,7 +245,7 @@ class LoginViewNew extends StatelessWidget {
                                     ),
                                     TextButton(
                                         onPressed: () {},
-                                        child: const Text("Olvidaste tu Contraseña?")),
+                                        child: const Text("")),
                                   ],
                                 ),
                                 const SizedBox(height: TSizes.spaceBtwSections),

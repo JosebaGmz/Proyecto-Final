@@ -112,8 +112,7 @@ class RegisterView extends StatelessWidget{
                             decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.password),
                                 labelText: "Contraseña",
-                                suffixIcon: Icon(
-                                    Icons.remove_red_eye_outlined)),
+                                ),
                           ),
                           const SizedBox(height: TSizes.spaceBtwInputFields),
                           TextFormField(
@@ -122,8 +121,7 @@ class RegisterView extends StatelessWidget{
                             decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.password),
                                 labelText: "Repita su contraseña",
-                                suffixIcon: Icon(
-                                    Icons.remove_red_eye_outlined)),
+                                ),
                           ),
                           const SizedBox(
                               height: TSizes.spaceBtwInputFields / 2),
@@ -138,7 +136,7 @@ class RegisterView extends StatelessWidget{
                               TextButton(
                                   onPressed: () {},
                                   child: const Text(
-                                      "Olvidaste tu Contraseña?")),
+                                      "")),
                             ],
                           ),
                           const SizedBox(height: TSizes.spaceBtwSections),
@@ -252,8 +250,7 @@ class RegisterView extends StatelessWidget{
                                             horizontal: 20, vertical: 15),
                                         prefixIcon: Icon(Icons.password),
                                         labelText: "Contraseña",
-                                        suffixIcon: Icon(
-                                            Icons.remove_red_eye_outlined)),
+                                        ),
                                   ),
                                 ),
                                 Padding(
@@ -267,8 +264,7 @@ class RegisterView extends StatelessWidget{
                                             horizontal: 20, vertical: 15),
                                         prefixIcon: Icon(Icons.password),
                                         labelText: "Repita su contraseña",
-                                        suffixIcon: Icon(
-                                            Icons.remove_red_eye_outlined)),
+                                        ),
                                   ),
                                 ),
                                 const SizedBox(
@@ -285,7 +281,7 @@ class RegisterView extends StatelessWidget{
                                     TextButton(
                                         onPressed: () {},
                                         child: const Text(
-                                            "Olvidaste tu Contraseña?")),
+                                            "")),
                                   ],
                                 ),
                                 const SizedBox(height: TSizes.spaceBtwSections),
