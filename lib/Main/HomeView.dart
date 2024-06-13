@@ -92,6 +92,56 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  void _filterPostsBySize(double size) {
+    setState(() {
+      filteredPosts = posts.where((post) {
+        return post.talla == size;
+      }).toList();
+    });
+  }
+
+  void _showAllPosts() {
+    setState(() {
+      filteredPosts = posts;
+    });
+  }
+
+  Future<void> _showSizeFilterDialog() async {
+    TextEditingController sizeController = TextEditingController();
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Filtrar por Talla'),
+          content: TextField(
+            controller: sizeController,
+            decoration: InputDecoration(hintText: 'Introduce la talla'),
+            keyboardType: TextInputType.number,
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Filtrar'),
+              onPressed: () {
+                double? size = double.tryParse(sizeController.text);
+                if (size != null) {
+                  _filterPostsBySize(size);
+                }
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,6 +175,10 @@ class _HomeViewState extends State<HomeView> {
                 _sortPostsByPrice(true);
               } else if (result == 'price_desc') {
                 _sortPostsByPrice(false);
+              } else if (result == 'filter_size') {
+                _showSizeFilterDialog();
+              } else if (result == 'show_all') {
+                _showAllPosts();
               }
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
@@ -136,8 +190,16 @@ class _HomeViewState extends State<HomeView> {
                 value: 'price_desc',
                 child: Text('Precio: Mayor a Menor'),
               ),
+              const PopupMenuItem<String>(
+                value: 'filter_size',
+                child: Text('Filtrar por Talla'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'show_all',
+                child: Text('Mostrar todos'),
+              ),
             ],
-            icon: Icon(Icons.filter_list,size: 30),
+            icon: Icon(Icons.filter_list, size: 30),
           ),
         ],
         centerTitle: true,
