@@ -86,7 +86,7 @@ class _PostCreateViewState extends State<PostCreateView> {
       );
       return;
     }
-    if (tcTelefono.text.isEmpty || !RegExp(r'^\+?[0-9]{10,15}$').hasMatch(tcTelefono.text)) {
+    if (tcTelefono.text.isEmpty || !RegExp(r'^[0-9]{9}$').hasMatch(tcTelefono.text)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Por favor, ingresa un número de teléfono válido.')),
       );
