@@ -46,13 +46,10 @@ class _PostGridNewViewState extends State<PostGridNewView> {
   void _mostrarDialogoModificar(BuildContext context) {
     String? nuevoTitulo;
     String? nuevoCuerpo;
-    String? nuevaUrlImg;
     int? nuevaTalla;
     String? nuevaMarca;
     String? nuevoColor;
     int? nuevoPrecio;
-
-    nuevaUrlImg = widget.datosPost.sUrlImg; // Conserva la misma URL de la imagen actual
 
     showDialog(
       context: context,
@@ -69,11 +66,6 @@ class _PostGridNewViewState extends State<PostGridNewView> {
                 TextField(
                   onChanged: (value) => nuevoCuerpo = value,
                   decoration: InputDecoration(labelText: 'Cuerpo', hintText: widget.datosPost.cuerpo),
-                ),
-                TextField(
-                  controller: TextEditingController(text: nuevaUrlImg), // Utiliza la URL actual como valor inicial
-                  onChanged: (value) => nuevaUrlImg = value,
-                  decoration: InputDecoration(labelText: 'URL Imagen', hintText: widget.datosPost.sUrlImg),
                 ),
                 TextField(
                   onChanged: (value) => nuevaTalla = int.tryParse(value),
@@ -108,7 +100,6 @@ class _PostGridNewViewState extends State<PostGridNewView> {
                 Map<String, dynamic> dataToUpdate = {
                   'titulo': nuevoTitulo,
                   'cuerpo': nuevoCuerpo,
-                  'sUrlImg': nuevaUrlImg,
                   'talla': nuevaTalla,
                   'marca': nuevaMarca,
                   'color': nuevoColor,

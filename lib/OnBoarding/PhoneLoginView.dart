@@ -95,38 +95,6 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
 
   }
 
-  /*@override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Iniciar Sesion",
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-        centerTitle: true,
-        shadowColor: Colors.white,
-        backgroundColor: Colors.black,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            CTextF(hint: "Numero Telefono",tController: tecPhone, password: false,),
-            CButton(onPressed: enviarTelefonoPressed, text: "Enviar",),
-            if(blMostrarVerificacion)
-              CTextF(hint: "Numero Verificacion",tController: tecVerify,password: false,),
-            if(blMostrarVerificacion)
-              CButton(onPressed: enviarVerifyPressed, text: "Enviar",)
-          ],
-
-        ),
-      ),
-
-    );
-  }*/
-
   @override
   Widget build(BuildContext context) {
 
@@ -206,7 +174,7 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
                               TextButton(
                                   onPressed: () {},
                                   child: const Text(
-                                      "Olvidaste tu Contraseña?")),
+                                      "")),
                             ],
                           ),
                           const SizedBox(height: TSizes.spaceBtwSections),
@@ -344,7 +312,7 @@ class _PhoneLoginViewState extends State<PhoneLoginView> {
                                     TextButton(
                                         onPressed: () {},
                                         child: const Text(
-                                            "Olvidaste tu Contraseña?")),
+                                            "")),
                                   ],
                                 ),
                                 const SizedBox(height: TSizes.spaceBtwSections),
