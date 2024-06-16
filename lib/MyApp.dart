@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget{
           '/settingsview' :(context) => SettingsView(),
           '/profileeditview' :(context) => ProfileEditView()
         },
-        initialRoute: '/splashview',
+        initialRoute: '/loginview',
         debugShowCheckedModeBanner: false,
       );
     }

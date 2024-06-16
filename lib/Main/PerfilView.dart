@@ -141,7 +141,7 @@ class _PerfilViewState extends State<PerfilView> {
               children: [
                 CircleAvatar(
                   radius: 70,
-                  backgroundImage: NetworkImage(userPhotoUrl ?? 'https://via.placeholder.com/150'), // URL de la foto de perfil
+                  backgroundImage: NetworkImage(userPhotoUrl ?? 'https://firebasestorage.googleapis.com/v0/b/proyecto-final-dam-joseba.appspot.com/o/profile_images%2Fprofile_3jEjw3JYShMuZjcn5ywnx2h0j7E2.png?alt=media&token=c21dd83d-edd7-4d81-9d7b-946112a85d99'), // URL de la foto de perfil
                   backgroundColor: Colors.white,
                 ),
                 SizedBox(width: 16.0),
@@ -150,7 +150,7 @@ class _PerfilViewState extends State<PerfilView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      userName!,
+                      userName ?? "Joseba",
                       style: TextStyle(fontSize: kIsWeb ? 24 : 16, color: Colors.white),
                     ),
                     SizedBox(height: 8.0),
